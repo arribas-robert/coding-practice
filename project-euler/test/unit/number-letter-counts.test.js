@@ -62,7 +62,7 @@ describe('Project Euler Number-Letter-Counts Unit Tests:', () => {
 
       // double digit check #num in teens
       const doubleDigitCheckTeens = NumLetterCounts.getNumLength(19)
-      expect(doubleDigitCheckTeens).to.be.a('number').and.to.equal(10)
+      expect(doubleDigitCheckTeens).to.be.a('number').and.to.equal(8)
 
       // double digit check #num > 20
       const doubleDigitCheckGt20 = NumLetterCounts.getNumLength(47)

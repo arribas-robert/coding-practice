@@ -36,7 +36,8 @@ const getNumLength = (num) => {
   // had difficulty finding a good name for this variable, #tensPlaceVal
   const tensPlaceVal = num % 100
 
-  if (num === 1000) total += getNumLengthUnderOneHundred(1) + 'thousand'.length
+  if (num === 1000)
+    return (total += getNumLengthUnderOneHundred(1) + 'thousand'.length)
 
   // nums in the hundreths ending in 0 (e.g. 100, 200, 300, etc)
   total += numValueUnderTwentyArr[Math.floor(num / 100)] + 'hundred'.length
