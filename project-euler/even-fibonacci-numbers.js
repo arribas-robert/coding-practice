@@ -6,30 +6,34 @@
 
 /**
  * Steps:
- * 1. Know the input and output of the problem
- * 2.
- * 3.
- * 4.
- * 5.
- * 6.
- * 3.
- * 4.
+ * 1. Know the input and output of the problem (e.g. First ten values of the Fibonacci sequence: 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, …,)
+ * 2. Loop over the sequence keeping a running count of the sum of the EVEN values as long as the values DO NOT exceed 4 million
+ * 3. In the loop add the necessary logic to determine if the value is an even #
+ * 4. Establish the conditional within the loop that checks if the values are within the limit(4 million)
+ * 5. Break the loop when the conditional is true and calculate the sum
+ * 6. Determine big O for solution and refactor accordingly.
  */
 
-const main = (limit = 4000000) => {
-  let sum = 0
-  let x = 1
-  let y = 1
-  let z = 0
+// Todo: Add unit test and refactor
 
-  do {
-    z = x + y
-    if (y % 2 === 0) sum += y
-    x = y
-    y = z
-  } while (y < limit)
-  return sum
+// My solution: 4613732. Big O for solution: O(n)
+const main = () => {
+  const result = calculateSum()
+  console.log('Result :', result)
+  return result
 }
+
+const calculateSum = (prevVal = 1, nextVal = 1, tempVal = 0, sum = 0) => {
+  const limit = 4000000
+
+  tempVal = prevVal + nextVal
+  if (nextVal % 2 === 0) sum += nextVal
+  prevVal = nextVal
+  nextVal = tempVal
+  return nextVal < limit ? calculateSum(prevVal, nextVal, tempVal, sum) : sum
+}
+
+main()
 
 module.exports = {
   main,
