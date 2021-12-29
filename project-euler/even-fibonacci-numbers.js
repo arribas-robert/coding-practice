@@ -14,27 +14,61 @@
  * 6. Determine big O for solution and refactor accordingly.
  */
 
-// Todo: Add unit test and refactor
-
 // My solution: 4613732. Big O for solution: O(n)
 const main = () => {
-  const result = calculateSum()
-  console.log('Result :', result)
-  return result
+  const { sum } = calculateSum()
+  return sum
 }
 
-const calculateSum = (prevVal = 1, nextVal = 1, tempVal = 0, sum = 0) => {
-  const limit = 4000000
+const calculateSum = ({
+  prevVal = 1,
+  nextVal = 1,
+  tempVal = 0,
+  sum = 0,
+  maxLimit = 4000000,
+} = {}) => {
+  const nonNumberValues = Object.values({
+    prevVal,
+    nextVal,
+    tempVal,
+    sum,
+    maxLimit,
+  }).filter(hasNonNumberValue)
 
+  if (nonNumberValues.length)
+    throw new TypeError('Sequence values must be of type number')
+
+  // prevSum and lastSeqValUsedInSumCalculation ONLY exists to use in unit test
+  let prevSum = 0
+  let lastSeqValUsedInSumCalculation
+
+  prevSum = sum - prevVal
+  lastSeqValUsedInSumCalculation = prevVal
   tempVal = prevVal + nextVal
   if (nextVal % 2 === 0) sum += nextVal
   prevVal = nextVal
   nextVal = tempVal
-  return nextVal < limit ? calculateSum(prevVal, nextVal, tempVal, sum) : sum
+
+  return nextVal < maxLimit
+    ? calculateSum({ prevVal, nextVal, tempVal, sum, maxLimit })
+    : {
+        prevVal,
+        nextVal,
+        tempVal,
+        sum,
+        maxLimit,
+        prevSum,
+        lastSeqValUsedInSumCalculation,
+      }
+}
+
+const hasNonNumberValue = (val) => {
+  return typeof val !== 'number'
 }
 
 main()
 
 module.exports = {
   main,
+  calculateSum,
 }
